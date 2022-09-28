@@ -1,0 +1,6 @@
+configs/*
+!configs/example.toml
+
+go.sum
+/.idea/
+/bin/
