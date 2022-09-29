@@ -33,7 +33,6 @@ func (s *Server) Start() error {
 	if err := s.ConfigureDb(); err != nil {
 		return err
 	}
-
 	return http.ListenAndServe(s.config.BindAddr, s.router)
 }
 

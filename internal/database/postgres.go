@@ -7,14 +7,18 @@ import (
 	"log"
 )
 
+var cash = make(map[string]model.Client)
+
 type Database struct {
 	config *Config
 	pool   *sql.DB
+	cash   map[string]model.Client
 }
 
 func NewDb(config *Config) *Database {
 	return &Database{
 		config: config,
+		cash:   cash,
 	}
 }
 
@@ -35,7 +39,6 @@ func (d *Database) Close() {
 }
 
 func (d *Database) Cashe() map[string]model.Client {
-	var cash = make(map[string]model.Client)
 	info, err := d.pool.Query("SELECT * from clients")
 	if err != nil {
 		log.Fatal(err)
@@ -49,5 +52,4 @@ func (d *Database) Cashe() map[string]model.Client {
 		cash[client.ID] = client
 	}
 	return cash
-
 }
